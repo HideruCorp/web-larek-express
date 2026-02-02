@@ -13,6 +13,11 @@ interface IProduct {
   price?: number | null;
 }
 
+const imageSchema = new Schema({
+  fileName: { type: String, required: true },
+  originalName: { type: String, required: true },
+}, { _id: false });
+
 const productSchema = new Schema<IProduct>({
   title: {
     type: String,
@@ -22,10 +27,7 @@ const productSchema = new Schema<IProduct>({
     maxlength: 30,
   },
   image: {
-    type: {
-      fileName: { type: String, required: true },
-      originalName: { type: String, required: true },
-    },
+    type: imageSchema,
     required: true,
   },
   category: {
@@ -41,6 +43,6 @@ const productSchema = new Schema<IProduct>({
     required: false,
     default: null,
   },
-});
+}, { versionKey: false });
 
 export default mongoose.model<IProduct>('product', productSchema);

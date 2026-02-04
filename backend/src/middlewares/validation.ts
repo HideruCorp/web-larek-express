@@ -34,12 +34,12 @@ export const validateOrderBody = celebrate({
         'any.only': 'Неверный способ оплаты. Доступны: card, online',
         'any.required': 'Поле "payment" должно быть заполнено',
       }),
-    email: Joi.string().email().required()
+    email: Joi.string().email({ tlds: false }).required()
       .messages({
         'string.email': 'Некорректный email',
         'any.required': 'Поле "email" должно быть заполнено',
       }),
-    phone: Joi.string().pattern(/^\+?\d{10,15}$/).required()
+    phone: Joi.string().pattern(/^\+?[\d\s\-()]{10,18}$/).required()
       .messages({
         'string.pattern.base': 'Некорректный формат номера телефона',
         'any.required': 'Поле "phone" должно быть заполнено',

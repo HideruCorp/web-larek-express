@@ -2,8 +2,9 @@ import path from 'path';
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import { errors } from 'celebrate';
 import { PORT, DB_ADDRESS } from './config';
-import errorHandler from './middlewares/error';
+import errorHandler from './middlewares/error-handler';
 import productRouter from './routes/product';
 import orderRouter from './routes/order';
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/product', productRouter);
 app.use('/order', orderRouter);
+app.use(errors());
 app.use(errorHandler);
 
 mongoose.connect(DB_ADDRESS);

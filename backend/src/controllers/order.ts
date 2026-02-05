@@ -24,7 +24,7 @@ export const createOrder = async (req: Request, res: Response, next: NextFunctio
       return next(new BadRequestError('Сумма заказа не соответствует стоимости товаров'));
     }
 
-    return res.status(201).json({ id: faker.string.uuid(), total });
+    return res.status(200).json({ id: faker.string.uuid(), total });
   } catch (error) {
     return next(error);
   }

@@ -26,7 +26,7 @@ services:
       - backend/.env
     volumes:
       - ./backend/src:/app/src
-      - public:/app/src/public
+      - public:/app/public
     ports:
       - 3000:3000
     networks:

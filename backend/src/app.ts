@@ -2,6 +2,7 @@ import path from 'path';
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import { rateLimit } from 'express-rate-limit';
 import { errors } from 'celebrate';
 import { PORT, DB_ADDRESS } from './config';
 import { requestLogger, errorLogger } from './middlewares/logger';
@@ -14,6 +15,14 @@ const app = express();
 const BASE_ROOT = path.join(__dirname, '..');
 
 app.use(cors());
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 100,
+  standardHeaders: 'draft-8',
+  legacyHeaders: false,
+  ipv6Subnet: 60,
+});
+app.use(limiter);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(requestLogger(BASE_ROOT));
